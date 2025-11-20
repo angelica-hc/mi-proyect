@@ -1,0 +1,43 @@
+import java.util.ArrayList;
+import java.util.List;
+
+// Interfaz Observador
+interface Observador {
+    void actualizar();
+}
+
+// Clase Sujeto
+class Sujeto {
+    private List<Observador> observadores = new ArrayList<>();
+
+    public void suscribir(Observador o) {
+        observadores.add(o);
+    }
+
+    public void notificar() {
+        for (Observador o : observadores) {
+            o.actualizar();
+        }
+    }
+}
+
+// Clase ObservadorA
+class ObservadorA implements Observador {
+    @Override
+    public void actualizar() {
+        System.out.println("Observador A notificado");
+    }
+}
+
+// Clase Main (Ejecutable)
+public class Main {
+    public static void main(String[] args) {
+        Sujeto sujeto = new Sujeto();
+
+        // Se suscribe un observador
+        sujeto.suscribir(new ObservadorA());
+
+        // Se envía la notificación
+        sujeto.notificar();
+    }
+}
